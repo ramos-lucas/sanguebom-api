@@ -1,0 +1,28 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "api Sangue Bom",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./bin/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/sangue-bom/api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/sangue-bom/api/issues"
+  },
+  "homepage": "https://gitlab.com/sangue-bom/api#README",
+  "dependencies": {
+    "debug": "^3.0.1",
+    "express": "^4.15.4",
+    "http": "0.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

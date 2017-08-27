@@ -18,6 +18,7 @@
   },
   "homepage": "https://gitlab.com/sangue-bom/api#README",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "debug": "^3.0.1",
     "express": "^4.15.4",
     "http": "0.0.0"

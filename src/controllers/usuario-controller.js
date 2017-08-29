@@ -16,7 +16,7 @@ exports.getByNickname = (req, res, next) => {
     Usuario
         .findOne({
             nickname: req.params.nickname
-        }, 'nome nickname email senha')
+        }, 'nome nickname email')
         .then(data => {
             res.status(200).send(data);
         })

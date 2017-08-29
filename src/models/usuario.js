@@ -20,14 +20,13 @@ const schema = new Schema({
     },
     cpf: {
         type: String,
-        required: true,
+        //required: true,
         trim: true,
-        index: true,
         unique: true
     },
     email: {
         type: String,
-        required: true,
+        //required: true,
         trim: true,
         unique: true
     },
@@ -43,7 +42,7 @@ const schema = new Schema({
     },
     permissao: {
         type: Boolean,
-        required: true,
+        //required: true,
         default: false
     }
 });

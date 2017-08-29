@@ -1,5 +1,21 @@
+const mongoose = require('mongoose');
+const Usuario = mongoose.model('Usuario');
+
 exports.post = (req, res, next) => {
-    res.status(201).send(req.body);
+    var usuario = new Usuario(req.body);
+    usuario
+        .save()
+        .then(x => {
+            res.status(201).send({ 
+                message: 'Usuario cadastrado com sucesso!'
+            });
+        })
+        .catch(e => {
+            res.status(400).send({ 
+                message: 'Falha ao cadastrar o usuário!',
+                data: e
+            });
+        });
 };
 
 exports.put = (req, res, next) => {

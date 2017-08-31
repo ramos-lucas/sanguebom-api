@@ -57,10 +57,7 @@ exports.put = (req, res, next) => {
     Usuario
         .findByIdAndUpdate(req.params.id, {
             $set: {
-                nome: req.body.nome,
-                nickname: req.body.nickname,
-                senha: req.body.senha,
-                email: req.body.email
+                'sangue.tipo': 'zzz'
             }
         })
         .then(x => {

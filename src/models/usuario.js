@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+var Localizacao = require('./localizacao')
+var LocalizacaoSchema = require('mongoose').model('Localizacao').schema;
 
 const schema = new Schema({
     nome: {
@@ -20,22 +22,20 @@ const schema = new Schema({
     telefone: {
         type: String, trim: true
     },
-    dt_nascimento: {
-        type: Date
-    },
-    avatar: {
-        type: String
-    },
-    sangue_tipo: {
-        type: String, trim: true
-    },
-    sangue_fator: {
-        type: String, trim: true
+    dt_nascimento: Date,
+    avatar: String,
+    sangue: {
+        tipo: String,
+        fator: String
     },
     admin: {
         type: Boolean, required: true, default: false
     },
+    localizacao: {
+        type: LocalizacaoSchema
+    }
 
 });
+
 
 module.exports = mongoose.model('Usuario', schema);

@@ -10,6 +10,7 @@ mongoose.connect('mongodb://localhost/sanguebom', { useMongoClient: true} );
 
 // carrega os models
 const usuarioModel = require('./models/usuario');
+const localizacaoModel = require('./models/localizacao');
 
 // carrega as rotas
 const indexRoute = require('./routes/index-route');
@@ -22,5 +23,4 @@ app.use(bodyParser.urlencoded({
 
 app.use('/', indexRoute);
 app.use('/usuarios', usuarioRoute);
-
 module.exports = app;

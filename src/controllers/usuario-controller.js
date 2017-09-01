@@ -16,7 +16,7 @@ exports.getByNickname = (req, res, next) => {
     Usuario
         .findOne({
             nickname: req.params.nickname
-        }, 'nome nickname email')
+        })
         .then(data => {
             res.status(200).send(data);
         })
@@ -57,7 +57,19 @@ exports.put = (req, res, next) => {
     Usuario
         .findByIdAndUpdate(req.params.id, {
             $set: {
-                'sangue.tipo': 'zzz'
+                'nome': req.body.nome,
+                'nickname': req.body.nickname,
+                'senha': req.body.senha,
+                'cpf': req.body.cpf,
+                'email': req.body.email,
+                'telefone': req.body.telefone,
+                'dt_nascimento': req.body.dt_nascimento,
+                'avatar': req.body.avatar,
+                'sangue': {
+                    'tipo': req.body.sangue.tipo,
+                    'fator': req.body.sangue.fator
+                },
+                'admin': req.params.admin
             }
         })
         .then(x => {

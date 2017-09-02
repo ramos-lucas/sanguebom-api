@@ -73,7 +73,7 @@ exports.put = (req, res, next) => {
             }
         })
         .then(x => {
-            res.status(201).send({
+            res.status(200).send({
                 message: 'Usuario atualizado com sucesso!'
             });
         })
@@ -89,7 +89,7 @@ exports.delete = (req, res, next) => {
     Usuario
     .findOneAndRemove(req.params.id)
     .then(x => {
-        res.status(201).send({
+        res.status(200).send({
             message: 'Usuario removido com sucesso!'
         });
     })

@@ -3,7 +3,7 @@ api Sangue Bom
 example JSON usuario:
 {	
 	"nome": "nome",
-    "nickname": "nick",
+    "username": "teste.teste",
     "senha": "senha",
     "cpf": "123456789",
     "email": "email@email.com",
@@ -13,6 +13,5 @@ example JSON usuario:
     "sangue":{
         "tipo": "AB",
         "fator": "+"
-    },
-    "admin": false
+    }
 }

@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-var Localizacao = require('./localizacao')
-var LocalizacaoSchema = require('mongoose').model('Localizacao').schema;
+const Localizacao = require('./localizacao')
+const LocalizacaoSchema = require('mongoose').model('Localizacao').schema;
 
 const schema = new Schema({
     nome: {
         type: String, required: true, trim: true
     },
-    nickname: {
+    username: {
         type: String, required: true, trim: true, index: true, unique: true
     },
     senha: {
@@ -28,8 +28,10 @@ const schema = new Schema({
         tipo: String,
         fator: String
     },
-    admin: {
-        type: Boolean, required: true, default: false
+    permissao: {
+        type: String,
+        enum: ['admin','user'], 
+        default: 'user'
     },
     localizacao: {
         type: LocalizacaoSchema

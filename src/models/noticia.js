@@ -11,7 +11,7 @@ const schema = new Schema({
     imagem: {
         type: String, trim: true, default: ''
     },
-    dt_cricao: {
+    dt_criacao: {
         type: Date, default: Date.now()
     }
 });

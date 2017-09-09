@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 const Usuario = mongoose.model('Usuario');
+const Validacao = require('../validators/validacao');
+const repository = require('../repositories/usuario-repository');
 
 exports.get = (req, res, next) => {
-    Usuario
-        .find({})
+    repository
+        .get()
         .then(data => {
             res.status(200).send(data);
         })
@@ -12,11 +14,9 @@ exports.get = (req, res, next) => {
         })
 };
 
-exports.getByNickname = (req, res, next) => {
-    Usuario
-        .findOne({
-            nickname: req.params.nickname
-        })
+exports.getByUsername = (req, res, next) => {
+    repository
+        .getByUsername(req.params.username)
         .then(data => {
             res.status(200).send(data);
         })
@@ -26,8 +26,8 @@ exports.getByNickname = (req, res, next) => {
 };
 
 exports.getById = (req, res, next) => {
-    Usuario
-        .findById(req.params.id)
+    repository
+        .getById(req.params.id)
         .then(data => {
             res.status(200).send(data);
         })
@@ -37,9 +37,16 @@ exports.getById = (req, res, next) => {
 };
 
 exports.post = (req, res, next) => {
-    var usuario = new Usuario(req.body);
-    usuario
-        .save()
+    let contrato = new Validacao();
+    contrato.usernameFormat(req.body.username, 'O nome de usuário deve conter de 5 a 20 caracteres, sendo letras (excluindo acentos), números e underline.');
+
+    if (!contrato.isValid()) {
+        res.status(400).send(contrato.errors()).end();
+        return;
+    }
+
+    repository
+        .create(req.body)
         .then(x => {
             res.status(201).send({ 
                 message: 'Usuario cadastrado com sucesso!'
@@ -54,24 +61,8 @@ exports.post = (req, res, next) => {
 };
 
 exports.put = (req, res, next) => {
-    Usuario
-        .findByIdAndUpdate(req.params.id, {
-            $set: {
-                'nome': req.body.nome,
-                'nickname': req.body.nickname,
-                'senha': req.body.senha,
-                'cpf': req.body.cpf,
-                'email': req.body.email,
-                'telefone': req.body.telefone,
-                'dt_nascimento': req.body.dt_nascimento,
-                'avatar': req.body.avatar,
-                'sangue': {
-                    'tipo': req.body.sangue.tipo,
-                    'fator': req.body.sangue.fator
-                },
-                'admin': req.params.admin
-            }
-        })
+    repository
+        .update(req.params.id, req.body)
         .then(x => {
             res.status(200).send({
                 message: 'Usuario atualizado com sucesso!'
@@ -86,17 +77,17 @@ exports.put = (req, res, next) => {
 };
 
 exports.delete = (req, res, next) => {
-    Usuario
-    .findOneAndRemove(req.params.id)
-    .then(x => {
-        res.status(200).send({
-            message: 'Usuario removido com sucesso!'
+    repository
+        .delete(req.params.id)
+        .then(x => {
+            res.status(200).send({
+                message: 'Usuario removido com sucesso!'
+            });
+        })
+        .catch(e => {
+            res.status(400).send({
+                message: 'Falha ao remover o usuário',
+                data: e
+            });
         });
-    })
-    .catch(e => {
-        res.status(400).send({
-            message: 'Falha ao remover o usuário',
-            data: e
-        });
-    });
 };

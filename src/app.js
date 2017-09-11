@@ -13,6 +13,7 @@ mongoose.connect('mongodb://localhost/sanguebom', { useMongoClient: true} );
 const usuarioModel = require('./models/usuario');
 const localizacaoModel = require('./models/localizacao');
 const noticiaModel = require('./models/noticia');
+const eventoModel = require('./models/evento');
 
 // carrega as rotas
 const indexRoute = require('./routes/index-route');
@@ -23,9 +24,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ 
     extended: false 
 }));
+
+//habilita cors básico para testes
 app.use(cors());
 
+//define rotas
 app.use('/', indexRoute);
 app.use('/usuarios', usuarioRoute);
 app.use('/noticias', noticiaRoute);
+
 module.exports = app;

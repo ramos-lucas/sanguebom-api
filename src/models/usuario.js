@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+/*
 const Localizacao = require('./localizacao')
 const LocalizacaoSchema = require('mongoose').model('Localizacao').schema;
-
+*/
 const schema = new Schema({
     nome: {
         type: String, required: true, trim: true
@@ -34,9 +35,39 @@ const schema = new Schema({
         default: 'user'
     },
     localizacao: {
-        type: LocalizacaoSchema
-    }
-
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Localizacao'
+    },
+    doacoes: [{
+        dt_criacao: { type: Date, default: Date.now },
+        status: {
+            type: String,
+            required: true,
+            enum: ['criada', 'agendada', 'concluida', 'cancelada'],
+            default: 'criada'
+        },
+        dt_doacao: {
+            type: Date
+        },
+        pontuacao: {
+            type: Number,
+            default: 0
+        }
+    }],
+    particapacoes: [{
+        evento: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Evento'
+        },
+        status: {
+            type: String,
+            enum: ['interessado', 'compareceu']
+        },
+        pontuacao: {
+            type: Number,
+            default: 0
+        }
+    }]
 });
 
 

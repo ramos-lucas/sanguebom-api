@@ -16,6 +16,14 @@ const schema = new Schema({
     },
     pontuacao: {
         type: Number, default: 0
+    },
+    localizacao: {
+        latitude: {type: Number, required: true},
+        longitude: {type: Number, required: true},
+        logradouro: {type: String},
+        numero: {type: Number},
+        complemento: {type: String},
+        bairro: {type: String}
     }
 });
 

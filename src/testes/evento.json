@@ -3,5 +3,12 @@
     "texto": "<p>Testando evento de teste</p><p>Outro teste</p>",
     "imagem": "imagem-teste.png",
     "dt_inicio": "12/30/2017",
-    "pontuacao": 20
+    "pontuacao": 20,
+    "localizacao": {
+        "latitude": -21.968320,
+        "longitude": -47.878042,
+        "logradouro": "Rua do IFSP",
+        "numero": 100,
+        "bairro": "Monjolinho"       
+    }
 }

@@ -11,7 +11,6 @@ mongoose.connect('mongodb://localhost/sanguebom', { useMongoClient: true} );
 
 // carrega os models
 const usuarioModel = require('./models/usuario');
-const localizacaoModel = require('./models/localizacao');
 const noticiaModel = require('./models/noticia');
 const eventoModel = require('./models/evento');
 
@@ -19,6 +18,7 @@ const eventoModel = require('./models/evento');
 const indexRoute = require('./routes/index-route');
 const usuarioRoute = require('./routes/usuario-route');
 const noticiaRoute = require('./routes/noticia-route');
+const eventoRoute = require('./routes/evento-route');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ 
@@ -32,5 +32,6 @@ app.use(cors());
 app.use('/', indexRoute);
 app.use('/usuarios', usuarioRoute);
 app.use('/noticias', noticiaRoute);
+app.use('/eventos', eventoRoute);
 
 module.exports = app;

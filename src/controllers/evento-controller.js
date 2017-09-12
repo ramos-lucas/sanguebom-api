@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const Noticia = mongoose.model('Noticia');
+const Evento = mongoose.model('Evento');
 const Validacao = require('../validators/validacao');
-const repository = require('../repositories/noticia-repository');
+const repository = require('../repositories/evento-repository');
 
 exports.get = async(req, res, next) => {
     try {
@@ -38,11 +38,11 @@ exports.post = async(req, res, next) => {
     try{
         await repository.create(req.body);
         res.status(201).send({
-            message: 'Noticia cadastrada com sucesso!'
+            message: 'Evento cadastrado com sucesso!'
         });
     } catch(e) {
         res.status(400).send({
-            message: 'Falha ao cadastrar a noticia!',
+            message: 'Falha ao cadastrar o evento!',
             data: e
         });
     }
@@ -52,11 +52,11 @@ exports.put = async(req, res, next) => {
     try{
         await repository.update(req.params.id, req.body);
         res.status(200).send({
-            message: 'Notícia atualizada com sucesso!'
+            message: 'Evento atualizado com sucesso!'
         });
     } catch(e) {
         res.status(400).send({
-            message: 'Falha ao atualizar a notícia',
+            message: 'Falha ao atualizar o evento',
             data: e
         });
     }
@@ -66,11 +66,11 @@ exports.delete = async(req, res, next) => {
     try{
         await repository.delete(req.params.id);
         res.status(200).send({
-            message: 'Notícia removida com sucesso!'
+            message: 'Evento removido com sucesso!'
         });
     } catch(e) {
         res.status(400).send({
-            message: 'Falha ao remover a noticia',
+            message: 'Falha ao remover o evento',
             data: e
         });
     }

@@ -1,0 +1,20 @@
+{
+    "nome": "lucas ramos",
+    "username": "lucas",
+    "senha": "lucas123",
+    "cpf": 11111111111,
+    "email": "ramos.lucash@gmail.com",
+    "telefone": "(11) 5555-5555",
+    "dt_nascimento": "08/21/1997",
+    "avatar": "avatar1.png",
+    "sangue": {
+        "tipo": "O",
+        "fator": "+"
+    },
+    "permissao": "user",
+    "localizacao": {
+        "latitude": -21.968320,
+        "longitude": -47.878042,
+        "bairro": "Monjolinho"        
+    }
+}

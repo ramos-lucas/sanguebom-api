@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-/*
-const Localizacao = require('./localizacao')
-const LocalizacaoSchema = require('mongoose').model('Localizacao').schema;
-*/
+
 const schema = new Schema({
     nome: {
         type: String, required: true, trim: true
@@ -35,8 +32,9 @@ const schema = new Schema({
         default: 'user'
     },
     localizacao: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Localizacao'
+        latitude: {type: Number},
+        longitude: {type: Number},
+        bairro: {type: String}        
     },
     doacoes: [{
         dt_criacao: { type: Date, default: Date.now },

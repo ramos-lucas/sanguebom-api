@@ -2,12 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const config = require('./config');
 
 const app = express();
 const router = express.Router();
 
 // conecta ao mongo
-mongoose.connect('mongodb://localhost/sanguebom', { useMongoClient: true} );
+mongoose.connect(config.mongoConnection, { useMongoClient: true} );
 
 // carrega os models
 const usuarioModel = require('./models/usuario');

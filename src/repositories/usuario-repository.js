@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Usuario = mongoose.model('Usuario');
 
 exports.get = async() => {
-    const res = await Usuario.find({}).populate('participacoes.evento', 'titulo dt_inicio pontuacao');
+    const res = await Usuario.find({});
     return res;
 }
 
@@ -10,13 +10,13 @@ exports.getByUsername = async(username) => {
     const res = await Usuario
         .findOne({
             username: username
-        });
+        }).populate('participacoes.evento', 'titulo dt_inicio pontuacao');
     return res;
 }
 
 exports.getById = async(id) => {
     const res = await Usuario
-        .findById(id);
+        .findById(id).populate('participacoes.evento', 'titulo dt_inicio pontuacao');
     return res;
 }
 

@@ -52,7 +52,7 @@ const schema = new Schema({
             default: 0
         }
     }],
-    particapacoes: [{
+    participacoes: [{
         evento: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Evento'

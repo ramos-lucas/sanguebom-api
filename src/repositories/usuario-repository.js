@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Usuario = mongoose.model('Usuario');
 
 exports.get = async() => {
-    const res = await Usuario.find({});
+    const res = await Usuario.find({}).populate('participacoes.evento', 'titulo dt_inicio pontuacao');
     return res;
 }
 

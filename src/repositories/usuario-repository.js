@@ -11,6 +11,7 @@ exports.getByUsername = async(username) => {
         .findOne({
             username: username
         }).populate('participacoes.evento', 'titulo dt_inicio pontuacao');
+
     return res;
 }
 
@@ -22,7 +23,7 @@ exports.getById = async(id) => {
 
 exports.create = async(data) => {
     var usuario = new Usuario(data);
-    await usuario.save()
+    await usuario.save();
 }
 
 exports.update = async(id, data) => {
@@ -48,4 +49,13 @@ exports.update = async(id, data) => {
 exports.delete = async(id) => {
     await Usuario
         .findOneAndRemove(id);
+}
+
+exports.criarDoacao = async(id, data) => {
+    
+    await Usuario
+        .update(
+            { _id: id }, 
+            { $push: { doacoes: data } }
+        );
 }

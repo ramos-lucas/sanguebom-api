@@ -88,3 +88,18 @@ exports.delete = async(req, res, next) => {
         });
     }
 };
+
+
+exports.criarDoacao = async(req, res, next) => {
+    try{
+        await repository.criarDoacao(req.params.id, req.body);
+        res.status(200).send({
+            message: 'Doacao cadastrada com sucesso!'
+        });
+    } catch(e) {
+        res.status(400).send({
+            message: 'Falha ao cadastrar doacao',
+            data: e
+        });
+    }
+};

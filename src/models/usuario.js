@@ -6,7 +6,7 @@ const schema = new Schema({
         type: String, required: true, trim: true
     },
     username: {
-        type: String, required: true, trim: true, index: true, unique: true
+        type: String, required: true, trim: true, unique: true
     },
     senha: {
         type: String, required: true
@@ -21,7 +21,9 @@ const schema = new Schema({
         type: String, trim: true
     },
     dt_nascimento: Date,
-    avatar: String,
+    avatar: {
+        type: String, default: 'avatar1.png'
+    },
     sangue: {
         tipo: String,
         fator: String
@@ -40,7 +42,6 @@ const schema = new Schema({
         dt_criacao: { type: Date, default: Date.now },
         status: {
             type: String,
-            required: true,
             enum: ['criada', 'agendada', 'concluida', 'cancelada'],
             default: 'criada'
         },

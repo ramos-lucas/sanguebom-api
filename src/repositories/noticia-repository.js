@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Noticia = mongoose.model('Noticia');
 
 exports.get = async() => {
-    const res = await Noticia.find({});
+    const res = await Noticia.find({}).sort({dt_criacao: -1});
     return res;
 }
 

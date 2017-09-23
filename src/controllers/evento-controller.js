@@ -1,5 +1,3 @@
-const mongoose = require('mongoose');
-const Evento = mongoose.model('Evento');
 const Validacao = require('../validators/validacao');
 const repository = require('../repositories/evento-repository');
 

@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-const Usuario = mongoose.model('Usuario');
 const Validacao = require('../validators/validacao');
 const repository = require('../repositories/usuario-repository');
+const md5 = require('md5');
 
 exports.get = async(req, res, next) => {
     try {
@@ -49,7 +48,19 @@ exports.post = async(req, res, next) => {
     }
 
     try{
-        await repository.create(req.body);
+        await repository.create({
+                nome: req.body.nome,
+                username: req.body.username,
+                senha: md5(req.body.senha + global.SALT_KEY),
+                cpf: req.body.cpf,
+                email: req.body.email,
+                telefone: req.body.telefone,
+                dt_nascimento: req.body.dt_nascimento,
+                avatar: req.body.avatar,
+                sangue: req.body.sangue,
+                permissao: req.body.permissao,
+                localizacao: req.body.localizacao
+        });
         res.status(201).send({
             message: 'Usuario cadastrado com sucesso!'
         });

@@ -48,7 +48,7 @@ exports.update = async(id, data) => {
 
 exports.delete = async(id) => {
     await Usuario
-        .findOneAndRemove(id);
+        .findByIdAndRemove(id);
 }
 
 exports.criarDoacao = async(id, data) => {
@@ -58,4 +58,12 @@ exports.criarDoacao = async(id, data) => {
             { _id: id }, 
             { $push: { doacoes: data } }
         );
+}
+
+exports.authenticate = async(data) => {
+    const res = await Usuario.findOne({
+        username: data.username,
+        senha: data.senha
+    });
+    return res;
 }

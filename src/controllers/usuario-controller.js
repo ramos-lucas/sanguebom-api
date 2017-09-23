@@ -1,6 +1,7 @@
 const Validacao = require('../validators/validacao');
 const repository = require('../repositories/usuario-repository');
 const md5 = require('md5');
+const authService = require('../services/auth-service');
 
 exports.get = async(req, res, next) => {
     try {
@@ -110,6 +111,40 @@ exports.criarDoacao = async(req, res, next) => {
     } catch(e) {
         res.status(400).send({
             message: 'Falha ao cadastrar doacao',
+            data: e
+        });
+    }
+};
+
+exports.authenticate = async(req, res, next) => {
+    try{
+        const usuario = await repository.authenticate({
+                username: req.body.username,
+                senha: md5(req.body.senha + global.SALT_KEY)
+        });
+
+        if(!usuario){
+            res.status(404).send({
+                message: 'Usuário ou senha inválidos'
+            });
+            return;
+        }
+
+        const token = await authService.generateToken({
+            username: usuario.username,
+            nome: usuario.nome
+        })
+
+        res.status(201).send({
+            token: token,
+            data: {
+                username: usuario.username,
+                nome: usuario.nome
+            }
+        });
+    } catch(e) {
+        res.status(400).send({
+            message: 'Falha ao autenticar!',
             data: e
         });
     }

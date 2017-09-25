@@ -104,7 +104,10 @@ exports.delete = async(req, res, next) => {
 
 exports.criarDoacao = async(req, res, next) => {
     try{
-        await repository.criarDoacao(req.params.id, req.body);
+        const token = req.body.token || req.query.token || req.headers['x-access-token'];
+        const data = await authService.decodeToken(token);
+
+        await repository.criarDoacao(data.id, req.body);
         res.status(200).send({
             message: 'Doacao cadastrada com sucesso!'
         });
@@ -131,6 +134,7 @@ exports.authenticate = async(req, res, next) => {
         }
 
         const token = await authService.generateToken({
+            id: usuario._id,
             username: usuario.username,
             nome: usuario.nome
         })
@@ -138,6 +142,43 @@ exports.authenticate = async(req, res, next) => {
         res.status(201).send({
             token: token,
             data: {
+                id: usuario.id,
+                username: usuario.username,
+                nome: usuario.nome
+            }
+        });
+    } catch(e) {
+        res.status(400).send({
+            message: 'Falha ao autenticar!',
+            data: e
+        });
+    }
+};
+
+exports.refreshToken = async(req, res, next) => {
+    try{
+        const token = req.body.token || req.query.token || req.headers['x-access-token'];
+        const data = await authService.decodeToken(token);
+
+        const usuario = await repository.getById(data.id);
+
+        if(!usuario){
+            res.status(404).send({
+                message: 'Usuário não encontrado'
+            });
+            return;
+        }
+
+        const tokenData = await authService.generateToken({
+            id: usuario._id,
+            username: usuario.username,
+            nome: usuario.nome
+        })
+
+        res.status(201).send({
+            token: tokenData,
+            data: {
+                id: usuario.id,
                 username: usuario.username,
                 nome: usuario.nome
             }

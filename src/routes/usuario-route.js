@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require('../controllers/usuario-controller')
 const authService = require('../services/auth-service');
 
-router.get('/', controller.get);
+router.get('/',authService.isAdmin, controller.get);
 router.get('/:username', controller.getByUsername);
 router.get('/admin/:id', controller.getById);
 router.post('/', controller.post);

@@ -12,7 +12,7 @@ const schema = new Schema({
         type: String, required: true
     },
     cpf: {
-        type: String, required: true, trim: true, unique: true
+        type: String, trim: true
     },
     email: {
         type: String, required: true, trim: true, unique: true

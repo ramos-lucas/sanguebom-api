@@ -136,7 +136,8 @@ exports.authenticate = async(req, res, next) => {
         const token = await authService.generateToken({
             id: usuario._id,
             username: usuario.username,
-            nome: usuario.nome
+            nome: usuario.nome,
+            permissao: usuario.permissao
         })
 
         res.status(201).send({
@@ -172,7 +173,8 @@ exports.refreshToken = async(req, res, next) => {
         const tokenData = await authService.generateToken({
             id: usuario._id,
             username: usuario.username,
-            nome: usuario.nome
+            nome: usuario.nome,
+            permissao: usuario.permissao
         })
 
         res.status(201).send({

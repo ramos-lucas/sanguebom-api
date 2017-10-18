@@ -18,6 +18,51 @@ exports.get = async(req, res, next) => {
 exports.getByUsername = async(req, res, next) => {
     try{
         var data = await repository.getByUsername(req.params.username);
+        if(data == null)
+        res.status(200).send({data : null});        
+        
+        res.status(200).send(data);
+    } catch(e) {
+        res.status(400).send({
+            message: 'Falha ao processar sua requisição',
+            data: e
+        });
+    }
+};
+
+exports.validaUsername = async(req, res, next) => {
+    try{
+        var data = await repository.getByUsername(req.params.username);
+        if(data == null)
+        res.status(200).send({data : true});        
+        
+        res.status(200).send({data : false});
+    } catch(e) {
+        res.status(400).send({
+            message: 'Falha ao processar sua requisição',
+            data: e
+        });
+    }
+};
+
+exports.validaEmail = async(req, res, next) => {
+    try{
+        var data = await repository.getByEmail(req.params.email);
+        if(data == null)
+        res.status(200).send({data : true});
+        
+        res.status(200).send({data : false});
+    } catch(e) {
+        res.status(400).send({
+            message: 'Falha ao processar sua requisição',
+            data: e
+        });
+    }
+};
+
+exports.getByEmail = async(req, res, next) => {
+    try{
+        var data = await repository.getByEmail(req.params.email);
         res.status(200).send(data);
     } catch(e) {
         res.status(400).send({
@@ -122,31 +167,34 @@ exports.criarDoacao = async(req, res, next) => {
 exports.authenticate = async(req, res, next) => {
     try{
         const usuario = await repository.authenticate({
-                username: req.body.username,
+                email: req.body.email,
                 senha: md5(req.body.senha + global.SALT_KEY)
         });
 
         if(!usuario){
-            res.status(404).send({
-                message: 'Usuário ou senha inválidos'
+            res.status(403).send({
+                message: 'E-mail ou senha inválidos'
             });
             return;
         }
 
         const token = await authService.generateToken({
             id: usuario._id,
-            username: usuario.username,
             nome: usuario.nome,
+            username: usuario.username,
+            email: usuario.email,
+            avatar: usuario.avatar,            
             permissao: usuario.permissao
         })
 
         res.status(201).send({
             token: token,
-            data: {
-                id: usuario.id,
-                username: usuario.username,
-                nome: usuario.nome
-            }
+            id: usuario._id,
+            nome: usuario.nome,
+            username: usuario.username,
+            email: usuario.email,
+            avatar: usuario.avatar,            
+            permissao: usuario.permissao
         });
     } catch(e) {
         res.status(400).send({
@@ -172,18 +220,21 @@ exports.refreshToken = async(req, res, next) => {
 
         const tokenData = await authService.generateToken({
             id: usuario._id,
-            username: usuario.username,
             nome: usuario.nome,
+            username: usuario.username,
+            email: usuario.email,
+            avatar: usuario.avatar,            
             permissao: usuario.permissao
         })
 
         res.status(201).send({
             token: tokenData,
-            data: {
-                id: usuario.id,
-                username: usuario.username,
-                nome: usuario.nome
-            }
+            id: usuario._id,
+            nome: usuario.nome,
+            username: usuario.username,
+            email: usuario.email,
+            avatar: usuario.avatar,            
+            permissao: usuario.permissao
         });
     } catch(e) {
         res.status(400).send({

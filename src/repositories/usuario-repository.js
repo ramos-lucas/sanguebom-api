@@ -15,6 +15,14 @@ exports.getByUsername = async(username) => {
     return res;
 }
 
+exports.getByEmail = async(email) => {
+    const res = await Usuario
+        .findOne({
+            email: email
+        }, 'email');
+    return res;
+}
+
 exports.getById = async(id) => {
     const res = await Usuario
         .findById(id).populate('participacoes.evento', 'titulo dt_inicio pontuacao');
@@ -62,7 +70,7 @@ exports.criarDoacao = async(id, data) => {
 
 exports.authenticate = async(data) => {
     const res = await Usuario.findOne({
-        username: data.username,
+        email: data.email,
         senha: data.senha
     });
     return res;

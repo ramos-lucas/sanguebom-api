@@ -14,12 +14,14 @@ mongoose.connect(config.mongoConnection, { useMongoClient: true} );
 const usuarioModel = require('./models/usuario');
 const noticiaModel = require('./models/noticia');
 const eventoModel = require('./models/evento');
+const adminModel = require('./models/admin');
 
 // carrega as rotas
 const indexRoute = require('./routes/index-route');
 const usuarioRoute = require('./routes/usuario-route');
 const noticiaRoute = require('./routes/noticia-route');
 const eventoRoute = require('./routes/evento-route');
+const adminRoute = require('./routes/admin-route');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ 
@@ -42,5 +44,6 @@ app.use('/', indexRoute);
 app.use('/usuarios', usuarioRoute);
 app.use('/noticias', noticiaRoute);
 app.use('/eventos', eventoRoute);
+app.use('/admin', adminRoute);
 
 module.exports = app;

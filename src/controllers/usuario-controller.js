@@ -15,6 +15,18 @@ exports.get = async(req, res, next) => {
     }
 };
 
+exports.getDoadores = async(req, res, next) => {
+    try {
+        var data = await repository.getDoadores();
+        res.status(200).send(data);
+    } catch(e) {
+        res.status(400).send({
+            message: 'Falha ao processar sua requisição',
+            data: e
+        });
+    }
+};
+
 exports.getByUsername = async(req, res, next) => {
     try{
         var data = await repository.getByUsername(req.params.username);
@@ -104,7 +116,6 @@ exports.post = async(req, res, next) => {
                 dt_nascimento: req.body.dt_nascimento,
                 avatar: req.body.avatar,
                 sangue: req.body.sangue,
-                permissao: req.body.permissao,
                 localizacao: req.body.localizacao
         });
         res.status(201).send({
@@ -182,19 +193,27 @@ exports.authenticate = async(req, res, next) => {
             id: usuario._id,
             nome: usuario.nome,
             username: usuario.username,
+            cpf: usuario.cpf,
             email: usuario.email,
-            avatar: usuario.avatar,            
-            permissao: usuario.permissao
+            telefone: usuario.telefone,
+            dt_nascimento: usuario.dt_nascimento,
+            avatar: usuario.avatar,
+            sangue: usuario.sangue
         })
 
         res.status(201).send({
             token: token,
-            id: usuario._id,
-            nome: usuario.nome,
-            username: usuario.username,
-            email: usuario.email,
-            avatar: usuario.avatar,            
-            permissao: usuario.permissao
+            data: {
+                id: usuario._id,
+                nome: usuario.nome,
+                username: usuario.username,
+                cpf: usuario.cpf,
+                email: usuario.email,
+                telefone: usuario.telefone,
+                dt_nascimento: usuario.dt_nascimento,
+                avatar: usuario.avatar,
+                sangue: usuario.sangue
+            }
         });
     } catch(e) {
         res.status(400).send({
@@ -222,19 +241,24 @@ exports.refreshToken = async(req, res, next) => {
             id: usuario._id,
             nome: usuario.nome,
             username: usuario.username,
+            cpf: usuario.cpf,
             email: usuario.email,
-            avatar: usuario.avatar,            
-            permissao: usuario.permissao
+            telefone: usuario.telefone,
+            dt_nascimento: usuario.dt_nascimento,
+            avatar: usuario.avatar,
+            sangue: usuario.sangue
         })
 
         res.status(201).send({
-            token: tokenData,
             id: usuario._id,
             nome: usuario.nome,
             username: usuario.username,
+            cpf: usuario.cpf,
             email: usuario.email,
-            avatar: usuario.avatar,            
-            permissao: usuario.permissao
+            telefone: usuario.telefone,
+            dt_nascimento: usuario.dt_nascimento,
+            avatar: usuario.avatar,
+            sangue: usuario.sangue
         });
     } catch(e) {
         res.status(400).send({

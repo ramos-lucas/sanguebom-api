@@ -2,7 +2,12 @@ const mongoose = require('mongoose');
 const Usuario = mongoose.model('Usuario');
 
 exports.get = async() => {
-    const res = await Usuario.find({});
+    const res = await Usuario.find();
+    return res;
+}
+
+exports.getDoadores = async() => {
+    const res = await Usuario.aggregate({$group: { _id : "$sangue", quantidade: { $sum : 1}}},{$project :{_id : 0, sangue : "$_id", quantidade : "$quantidade"}})
     return res;
 }
 

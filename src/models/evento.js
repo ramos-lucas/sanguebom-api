@@ -18,8 +18,8 @@ const schema = new Schema({
         type: Number, default: 0
     },
     localizacao: {
-        latitude: {type: Number, required: true},
-        longitude: {type: Number, required: true},
+        latitude: {type: Number},
+        longitude: {type: Number},
         logradouro: {type: String},
         numero: {type: Number},
         complemento: {type: String},

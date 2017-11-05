@@ -28,11 +28,6 @@ const schema = new Schema({
         tipo: String,
         fator: String
     },
-    permissao: {
-        type: String,
-        enum: ['admin','user'], 
-        default: 'user'
-    },
     localizacao: {
         latitude: {type: Number},
         longitude: {type: Number},

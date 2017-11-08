@@ -33,12 +33,13 @@ const schema = new Schema({
         long: Number,
         bairro: String
     },
-    doacoes: [{
+    doacoes:
+    [new Schema({
         doacao: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'Doacao'
         }
-    }],
+    }, { _id: false })],
     participacoes: [{
         evento: {
             type: mongoose.Schema.Types.ObjectId,

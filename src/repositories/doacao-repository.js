@@ -39,7 +39,8 @@ exports.getByUsername = async(username) => {
 
  exports.create = async(data) => {
     var doacao = new Doacao(data);
-    await doacao.save();
+    await doacao.save();    
+    return doacao;
 }
 
 exports.agendar = async(data) => {

@@ -10,7 +10,6 @@ router.get('/id/:id', controller.getById);
 router.post('/', controller.post);
 router.put('/:id', controller.put);
 router.delete('/:id', controller.delete);
-router.post('/criarDoacao', controller.criarDoacao);
 router.post('/authenticate', controller.authenticate);
 router.post('/refresh-token', controller.refreshToken);
 router.get('/valida-username/:username', controller.validaUsername);

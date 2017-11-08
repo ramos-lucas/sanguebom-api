@@ -1,4 +1,5 @@
 const repository = require('../repositories/doacao-repository');
+const usuarioController = require('../controllers/usuario-controller');
 const authService = require('../services/auth-service');
 
 exports.getCriadas = async(req, res, next) => {
@@ -12,7 +13,6 @@ exports.getCriadas = async(req, res, next) => {
         });
     }
 };
-
 exports.getAgendadas = async(req, res, next) => {
     try {
         var data = await repository.getAgendadas();
@@ -24,7 +24,6 @@ exports.getAgendadas = async(req, res, next) => {
         });
     }
 };
-
 exports.getConcluidas = async(req, res, next) => {
     try {
         var data = await repository.getConcluidas();
@@ -36,7 +35,6 @@ exports.getConcluidas = async(req, res, next) => {
         });
     }
 };
-
 exports.getCanceladas = async(req, res, next) => {
     try {
         var data = await repository.getCanceladas();
@@ -48,10 +46,11 @@ exports.getCanceladas = async(req, res, next) => {
         });
     }
 };
-
 exports.post = async(req, res, next) => {
     try{
-        await repository.create(req.body);
+        var doacao = await repository.create(req.body);   
+        var status = usuarioController.inserirDoacao(req.body.usuario, doacao);
+
         res.status(201).send({
             message: 'Doação cadastrada com sucesso!'
         });

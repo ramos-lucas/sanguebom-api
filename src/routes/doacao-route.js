@@ -11,6 +11,7 @@ router.post('/', controller.post);
 router.post('/agendar', controller.agendar);
 router.post('/concluir', controller.concluir);
 router.post('/cancelar', controller.cancelar);
+router.get('/ultimaDoacao/:id', controller.getUltimaDoacao);
 // router.put('/:id', controller.put);
 // router.delete('/:id', controller.delete);
 module.exports = router;

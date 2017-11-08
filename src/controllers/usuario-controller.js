@@ -209,7 +209,9 @@ exports.authenticate = async(req, res, next) => {
                 telefone: usuario.telefone,
                 dt_nascimento: usuario.dt_nascimento,
                 avatar: usuario.avatar,
-                sangue: usuario.sangue
+                sangue: usuario.sangue,
+                doacoes: usuario.doacoes,
+                participacoes: usuario.participacoes
             }
         });
     } catch(e) {
@@ -255,7 +257,9 @@ exports.refreshToken = async(req, res, next) => {
             telefone: usuario.telefone,
             dt_nascimento: usuario.dt_nascimento,
             avatar: usuario.avatar,
-            sangue: usuario.sangue
+            sangue: usuario.sangue,
+            doacoes: usuario.doacoes,
+            participacoes: usuario.participacoes
         });
     } catch(e) {
         res.status(400).send({

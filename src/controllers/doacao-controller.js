@@ -2,6 +2,18 @@ const repository = require('../repositories/doacao-repository');
 const usuarioController = require('../controllers/usuario-controller');
 const authService = require('../services/auth-service');
 
+exports.getUltimaDoacao = async(req, res, next) => {
+    try {
+        var data = await repository.getUltimaDoacao(req.params.id);
+        res.status(200).send(data);
+    } catch(e) {
+        res.status(400).send({
+            message: 'Falha ao processar sua requisição',
+            data: e
+        });
+    }
+};
+
 exports.getCriadas = async(req, res, next) => {
     try {
         var data = await repository.getCriadas();

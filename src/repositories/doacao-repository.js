@@ -4,7 +4,7 @@ const Doacao = mongoose.model('Doacao');
 
 exports.getUltimaDoacao = async(id) => {
     const res = await Doacao
-        .find({ usuario: id }).
+        .findOne({ usuario: id }).
         sort({
           dt_criacao: -1
         }).

@@ -29,25 +29,17 @@ const schema = new Schema({
         fator: String
     },
     localizacao: {
-        latitude: {type: Number},
-        longitude: {type: Number},
-        bairro: {type: String}        
+        lat: Number,
+        long: Number,
+        bairro: String
     },
-    doacoes: [{
-        dt_criacao: { type: Date, default: Date.now },
-        status: {
-            type: String,
-            enum: ['criada', 'agendada', 'concluida', 'cancelada'],
-            default: 'criada'
-        },
-        dt_doacao: {
-            type: Date
-        },
-        pontuacao: {
-            type: Number,
-            default: 0
+    doacoes:
+    [new Schema({
+        doacao: {
+            type: Schema.Types.ObjectId,
+            ref: 'Doacao'
         }
-    }],
+    }, { _id: false })],
     participacoes: [{
         evento: {
             type: mongoose.Schema.Types.ObjectId,

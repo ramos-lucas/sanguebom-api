@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Evento = mongoose.model('Evento');
 
 exports.get = async() => {
-    const res = await Evento.find({}).sort({dt_inicio: 1});
+    const res = await Evento.find({}).sort({dt_inicio: -1});
     return res;
 }
 

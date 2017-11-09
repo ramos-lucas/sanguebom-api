@@ -158,20 +158,17 @@ exports.delete = async(req, res, next) => {
 };
 
 
-exports.criarDoacao = async(req, res, next) => {
+exports.inserirDoacao = async(idUsuario, doacao) => {
+  
+    var status = {};
     try{
-        const token = req.body.token || req.query.token || req.headers['x-access-token'];
-        const data = await authService.decodeToken(token);
-
-        await repository.criarDoacao(data.id, req.body);
-        res.status(200).send({
-            message: 'Doacao cadastrada com sucesso!'
-        });
-    } catch(e) {
-        res.status(400).send({
-            message: 'Falha ao cadastrar doacao',
-            data: e
-        });
+        await repository.inserirDoacao(idUsuario, doacao._id);  
+        status.message = 'Doacao inserida com sucesso!';
+        return status
+    } catch(e) {            
+        status.message = 'Falha ao inserir doacao';
+        status.data = e;        
+        return status;
     }
 };
 
@@ -212,7 +209,9 @@ exports.authenticate = async(req, res, next) => {
                 telefone: usuario.telefone,
                 dt_nascimento: usuario.dt_nascimento,
                 avatar: usuario.avatar,
-                sangue: usuario.sangue
+                sangue: usuario.sangue,
+                doacoes: usuario.doacoes,
+                participacoes: usuario.participacoes
             }
         });
     } catch(e) {
@@ -258,7 +257,9 @@ exports.refreshToken = async(req, res, next) => {
             telefone: usuario.telefone,
             dt_nascimento: usuario.dt_nascimento,
             avatar: usuario.avatar,
-            sangue: usuario.sangue
+            sangue: usuario.sangue,
+            doacoes: usuario.doacoes,
+            participacoes: usuario.participacoes
         });
     } catch(e) {
         res.status(400).send({

@@ -1,26 +1,26 @@
 const mongoose = require('mongoose');
 const Usuario = mongoose.model('Usuario');
 
-exports.get = async() => {
-    const res = await Usuario.find();
+exports.get = async () => {
+    const res = await Usuario.find().populate('doacoes.doacao', 'dt_criacao status dt_doacao');
     return res;
 }
 
-exports.getDoadores = async() => {
-    const res = await Usuario.aggregate({$group: { _id : "$sangue", quantidade: { $sum : 1}}},{$project :{_id : 0, sangue : "$_id", quantidade : "$quantidade"}})
+exports.getDoadores = async () => {
+    const res = await Usuario.aggregate({ $group: { _id: "$sangue", quantidade: { $sum: 1 } } }, { $project: { _id: 0, sangue: "$_id", quantidade: "$quantidade" } })
     return res;
 }
 
-exports.getByUsername = async(username) => {
+exports.getByUsername = async (username) => {
     const res = await Usuario
         .findOne({
             username: username
-        }).populate('participacoes.evento', 'titulo dt_inicio pontuacao');
+        }).populate('doacoes.doacao', 'dt_criacao status dt_doacao');
 
     return res;
 }
 
-exports.getByEmail = async(email) => {
+exports.getByEmail = async (email) => {
     const res = await Usuario
         .findOne({
             email: email
@@ -28,18 +28,18 @@ exports.getByEmail = async(email) => {
     return res;
 }
 
-exports.getById = async(id) => {
+exports.getById = async (id) => {
     const res = await Usuario
-        .findById(id).populate('participacoes.evento', 'titulo dt_inicio pontuacao');
+        .findById(id).populate('doacoes.doacao', 'dt_criacao status dt_doacao');
     return res;
 }
 
-exports.create = async(data) => {
+exports.create = async (data) => {
     var usuario = new Usuario(data);
     await usuario.save();
 }
 
-exports.update = async(id, data) => {
+exports.update = async (id, data) => {
     await Usuario
         .findByIdAndUpdate(id, {
             $set: {
@@ -59,24 +59,26 @@ exports.update = async(id, data) => {
         });
 }
 
-exports.delete = async(id) => {
+exports.delete = async (id) => {
     await Usuario
         .findByIdAndRemove(id);
 }
 
-exports.criarDoacao = async(id, data) => {
-    
+exports.inserirDoacao = async (idUsuario, idDoacao) => {
     await Usuario
-        .update(
-            { _id: id }, 
-            { $push: { doacoes: data } }
-        );
+    .findByIdAndUpdate(idUsuario, {
+        $push: {
+            'doacoes': {
+                'doacao': idDoacao
+            }
+        }
+    });
 }
 
-exports.authenticate = async(data) => {
+exports.authenticate = async (data) => {
     const res = await Usuario.findOne({
         email: data.email,
         senha: data.senha
-    });
+    }).populate('doacoes.doacao', 'dt_criacao status localizacao dt_doacao');
     return res;
 }

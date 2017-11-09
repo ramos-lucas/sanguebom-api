@@ -15,6 +15,7 @@ const usuarioModel = require('./models/usuario');
 const noticiaModel = require('./models/noticia');
 const eventoModel = require('./models/evento');
 const adminModel = require('./models/admin');
+const doacaoModel = require('./models/doacao');
 
 // carrega as rotas
 const indexRoute = require('./routes/index-route');
@@ -22,6 +23,7 @@ const usuarioRoute = require('./routes/usuario-route');
 const noticiaRoute = require('./routes/noticia-route');
 const eventoRoute = require('./routes/evento-route');
 const adminRoute = require('./routes/admin-route');
+const doacaoRoute = require('./routes/doacao-route');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ 
@@ -45,5 +47,6 @@ app.use('/usuarios', usuarioRoute);
 app.use('/noticias', noticiaRoute);
 app.use('/eventos', eventoRoute);
 app.use('/admin', adminRoute);
+app.use('/doacoes', doacaoRoute);
 
 module.exports = app;

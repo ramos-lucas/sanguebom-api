@@ -9,7 +9,7 @@ const schema = new Schema({
         type: String, trim: true, required: true
     },
     imagem: {
-        type: String, trim: true, default: ''
+        type: String, trim: true, default: 'noticia.jpg'
     },
     dt_criacao: {
         type: Date, default: Date.now()

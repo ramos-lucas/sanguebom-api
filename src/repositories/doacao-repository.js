@@ -15,7 +15,7 @@ exports.getUltimaDoacao = async(id) => {
 exports.getCriadas = async() => {
     const res = await Doacao
         .find({ status: 'criada' })
-        .populate('usuario', 'sangue localizacao');
+        .populate('usuario', 'sangue localizacao nome');
     return res;
 }
 exports.getAgendadas = async() => {

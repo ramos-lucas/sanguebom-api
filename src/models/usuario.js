@@ -21,6 +21,9 @@ const schema = new Schema({
         type: String, trim: true
     },
     dt_nascimento: Date,
+    sexo: {
+        type: String, enum: ['M', 'F'], required: true
+    },
     avatar: {
         type: String, default: 'avatar1.png'
     },
@@ -33,27 +36,30 @@ const schema = new Schema({
         long: Number,
         bairro: String
     },
-    doacoes:
-    [new Schema({
-        doacao: {
-            type: Schema.Types.ObjectId,
-            ref: 'Doacao'
-        }
-    }, { _id: false })],
-    participacoes: [{
-        evento: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Evento'
-        },
-        status: {
-            type: String,
-            enum: ['interessado', 'compareceu']
-        },
-        pontuacao: {
-            type: Number,
-            default: 0
-        }
-    }]
+    doacoes: [
+        new Schema({
+            doacao: {
+                type: Schema.Types.ObjectId,
+                ref: 'Doacao'
+            }
+        }, { _id: false })
+    ],
+    participacoes: [
+        new Schema({
+            evento: {
+                type: Schema.Types.ObjectId,
+                ref: 'Evento'
+            },
+            status: {
+                type: String,
+                enum: ['interessado', 'compareceu']
+            },
+            pontuacao: {
+                type: Number,
+                default: 0
+            }
+        }, { _id: false })
+    ]
 });
 
 

@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const moment = require('moment');
 
 const schema = new Schema({
     usuario: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Usuario'
     },
-    dt_criacao: { type: Date, default: Date.now },
+    dt_criacao: { type: Date, default: moment().toDate() },
     status: {
         type: String,
         enum: ['criada', 'agendada', 'concluida', 'cancelada'],

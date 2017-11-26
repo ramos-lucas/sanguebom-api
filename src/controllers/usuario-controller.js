@@ -114,9 +114,9 @@ exports.post = async(req, res, next) => {
                 email: req.body.email,
                 telefone: req.body.telefone,
                 dt_nascimento: req.body.dt_nascimento,
+                sexo: req.body.sexo,
                 avatar: req.body.avatar,
-                sangue: req.body.sangue,
-                localizacao: req.body.localizacao
+                sangue: req.body.sangue
         });
         res.status(201).send({
             message: 'Usuario cadastrado com sucesso!'
@@ -171,6 +171,20 @@ exports.inserirDoacao = async(idUsuario, doacao) => {
         return status;
     }
 };
+
+exports.alterarLocalizacao = async(idUsuario, localizacao) => {
+    
+      var status = {};
+      try{
+          await repository.alterarLocalizacao(idUsuario, localizacao);  
+          status.message = 'Localização alterada com sucesso!';
+          return status
+      } catch(e) {            
+          status.message = 'Falha ao alterar localização';
+          status.data = e;        
+          return status;
+      }
+  };
 
 exports.authenticate = async(req, res, next) => {
     try{

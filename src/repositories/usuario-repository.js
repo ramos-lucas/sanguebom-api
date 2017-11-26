@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Usuario = mongoose.model('Usuario');
 
 exports.get = async () => {
-    const res = await Usuario.find().populate('doacoes.doacao', 'dt_criacao status dt_doacao');
+    const res = await Usuario.find().populate('doacoes.doacao', 'dt_criacao status dt_doacao pontuacao');
     return res;
 }
 
@@ -15,7 +15,7 @@ exports.getByUsername = async (username) => {
     const res = await Usuario
         .findOne({
             username: username
-        }).populate('doacoes.doacao', 'dt_criacao status dt_doacao');
+        }).populate('doacoes.doacao', 'dt_criacao status dt_doacao pontuacao');
 
     return res;
 }
@@ -30,7 +30,7 @@ exports.getByEmail = async (email) => {
 
 exports.getById = async (id) => {
     const res = await Usuario
-        .findById(id).populate('doacoes.doacao', 'dt_criacao status dt_doacao');
+        .findById(id).populate('doacoes.doacao', 'dt_criacao status dt_doacao pontuacao');
     return res;
 }
 
@@ -71,6 +71,15 @@ exports.inserirDoacao = async (idUsuario, idDoacao) => {
             'doacoes': {
                 'doacao': idDoacao
             }
+        }
+    });
+}
+
+exports.alterarLocalizacao = async (idUsuario, localizacao) => {
+    await Usuario
+    .findByIdAndUpdate(idUsuario, {
+        $set: {
+            'localizacao': localizacao
         }
     });
 }

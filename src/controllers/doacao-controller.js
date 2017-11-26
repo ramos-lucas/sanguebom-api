@@ -2,17 +2,17 @@ const repository = require('../repositories/doacao-repository');
 const usuarioController = require('../controllers/usuario-controller');
 const authService = require('../services/auth-service');
 
-exports.getUltimaDoacao = async(req, res, next) => {
-    try {
-        var data = await repository.getUltimaDoacao(req.params.id);
-        res.status(200).send(data);
-    } catch(e) {
-        res.status(400).send({
-            message: 'Falha ao processar sua requisição',
-            data: e
-        });
-    }
-};
+// exports.getUltimaDoacao = async(req, res, next) => {
+//     try {
+//         var data = await repository.getUltimaDoacao(req.params.id);
+//         res.status(200).send(data);
+//     } catch(e) {
+//         res.status(400).send({
+//             message: 'Falha ao processar sua requisição',
+//             data: e
+//         });
+//     }
+// };
 
 exports.getCriadas = async(req, res, next) => {
     try {
@@ -62,9 +62,11 @@ exports.post = async(req, res, next) => {
     try{
         var doacao = await repository.create(req.body);   
         var status = usuarioController.inserirDoacao(req.body.usuario, doacao);
+        await usuarioController.alterarLocalizacao(req.body.usuario, req.body.localizacao);
 
         res.status(201).send({
-            message: 'Doação cadastrada com sucesso!'
+            message: 'Doação cadastrada com sucesso!',
+            doacao: doacao.id
         });
     } catch(e) {
         res.status(400).send({
@@ -114,32 +116,38 @@ exports.cancelar = async(req, res, next) => {
     }
 };
 
-/* 
-exports.put = async(req, res, next) => {
+exports.aptoDoar = async(req, res, next) => {
     try{
-        await repository.update(req.params.id, req.body);
-        res.status(200).send({
-            message: 'Usuario atualizado com sucesso!'
-        });
-    } catch(e) {
+        const data = await repository.aptoDoar(req.params.id);
+        res.status(201).send(data);
+    } catch(e){
         res.status(400).send({
-            message: 'Falha ao atualizar o usuário',
+            message: 'Erro!',
             data: e
         });
     }
-};
+}
 
-exports.delete = async(req, res, next) => {
-    try{
-        await repository.delete(req.params.id);
-        res.status(200).send({
-            message: 'Usuario removido com sucesso!'
-        });
-    } catch(e) {
+exports.getDoacaoById = async(req, res, next) => {
+    try {
+        const data = await repository.getDoacaoById(req.params.id);
+        res.status(201).send(data);
+    } catch (e){
         res.status(400).send({
-            message: 'Falha ao remover o usuário',
+            message: 'Erro!',
             data: e
         });
     }
-};
- */
+}
+
+exports.getDoacoesDeHoje = async(req, res, next) => {
+    try {
+        const data = await repository.getDoacoesDeHoje();
+        res.status(201).send(data);
+    } catch (e){
+        res.status(400).send({
+            message: 'Erro!',
+            data: e
+        });
+    }
+}

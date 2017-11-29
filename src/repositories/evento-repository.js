@@ -25,7 +25,8 @@ exports.update = async(id, data) => {
                 'texto': data.texto,
                 'imagem': data.imagem,
                 'dt_inicio': data.dt_inicio,
-                'pontuacao': data.pontuacao
+                'pontuacao': data.pontuacao,
+                'localizacao' : data.localizacao
             }
         });
 }

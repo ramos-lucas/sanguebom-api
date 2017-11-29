@@ -28,7 +28,6 @@ exports.getById = async(id) => {
 }
 
 exports.create = async(data) => {
-    console.log(data);
     var admin = new Admin(data);
     await admin.save();
 }

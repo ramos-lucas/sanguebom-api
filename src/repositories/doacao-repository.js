@@ -3,9 +3,7 @@ const Usuario = mongoose.model('Usuario');
 const Doacao = mongoose.model('Doacao');
 var moment = require('moment');
 
-exports.getCriadas = async () => {
-    console.log(moment());
-    
+exports.getCriadas = async () => {    
     const res = await Doacao
         .find({ status: 'criada' })
         .populate('usuario', 'sangue localizacao nome telefone');
@@ -58,7 +56,6 @@ exports.concluir = async (data) => {
 }
 
 exports.cancelar = async (data) => {
-    console.log(data.id);
     await Doacao
         .findByIdAndUpdate(data.id, {
             $set: {
@@ -127,8 +124,6 @@ exports.getDoacaoById = async (id) => {
 exports.getDoacoesDeHoje = async () => {
     var start = moment().startOf('day'); 
     var end = moment().endOf('day'); 
-    console.log(start);
-    console.log(end);
     const res = await Doacao
         .find({
             status: 'agendada', 

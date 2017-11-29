@@ -14,14 +14,16 @@ const schema = new Schema({
     dt_inicio: {
         type: Date, required: true
     },
+    dt_criacao: {
+        type: Date, default: Date.now
+    },
     pontuacao: {
         type: Number, default: 0
     },
     localizacao: {
         latitude: {type: Number},
         longitude: {type: Number},
-        logradouro: {type: String},
-        numero: {type: Number},
+        endereco: {type: String},
         complemento: {type: String},
         bairro: {type: String}
     }

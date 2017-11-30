@@ -282,3 +282,20 @@ exports.refreshToken = async(req, res, next) => {
         });
     }
 };
+
+exports.getPontuacao = async(req, res, next) =>{
+    var pontuacao = 0;
+    try{
+        var usuario = await repository.getById(req.params.id);
+        usuario.doacoes.forEach(function(element) {
+            if(element.doacao != null)
+                pontuacao += element.doacao.pontuacao;
+        }, this);
+        res.status(200).send({pontuacao});
+    } catch(e) {            
+        res.status(400).send({
+            message: 'Falha ao processar sua requisição',
+            data: e
+        });
+    }
+}

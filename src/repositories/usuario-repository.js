@@ -91,3 +91,41 @@ exports.authenticate = async (data) => {
     }).populate('doacoes.doacao', 'dt_criacao status localizacao dt_doacao');
     return res;
 }
+
+exports.adicionarInteresse = async (id_evento, id_usuario) => {
+    await Usuario
+        .findByIdAndUpdate(id_usuario, {
+            $push: {
+                'participacoes' : {
+                    'evento': id_evento
+                }
+            }
+        })
+}
+
+exports.removerInteresse = async (id_evento, id_usuario) => {
+    await Usuario
+        .findByIdAndUpdate(id_usuario, {
+            $pull: {
+                'participacoes' : {
+                    'evento': id_evento
+                }
+            }
+        })
+}
+
+exports.compareceu = async (id_evento, id_usuario, pontuacao) => {
+    await Usuario
+        .update({
+            "_id": id_usuario,
+            "participacoes.evento": id_evento
+            },
+            {
+                $set: {
+                    "participacoes.$.status": "compareceu",
+                    "participacoes.$.pontuacao": pontuacao
+                }
+            }
+        );
+
+}

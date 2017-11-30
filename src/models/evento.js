@@ -26,7 +26,23 @@ const schema = new Schema({
         endereco: {type: String},
         complemento: {type: String},
         bairro: {type: String}
-    }
+    },
+    interessados:  [
+        new Schema({
+            usuario: {
+                type: Schema.Types.ObjectId,
+                ref: 'Usuario'
+            }
+        }, { _id: false })
+    ],
+    compareceram:  [
+        new Schema({
+            usuario: {
+                type: Schema.Types.ObjectId,
+                ref: 'Usuario'
+            }
+        }, { _id: false })
+    ]
 });
 
 module.exports = mongoose.model('Evento', schema);

@@ -52,7 +52,8 @@ const schema = new Schema({
             },
             status: {
                 type: String,
-                enum: ['interessado', 'compareceu']
+                enum: ['interessado', 'compareceu'],
+                default: 'interessado'
             },
             pontuacao: {
                 type: Number,

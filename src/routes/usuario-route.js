@@ -15,5 +15,6 @@ router.post('/refresh-token', controller.refreshToken);
 router.get('/valida-username/:username', controller.validaUsername);
 router.get('/valida-email/:email', controller.validaEmail);
 router.get('/doadores', controller.getDoadores);
+router.get('/pontuacao/:id', controller.getPontuacao);
 
 module.exports = router;

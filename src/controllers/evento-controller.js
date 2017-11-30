@@ -1,5 +1,6 @@
 const Validacao = require('../validators/validacao');
 const repository = require('../repositories/evento-repository');
+const usuarioRepository = require('../repositories/usuario-repository');
 
 exports.get = async(req, res, next) => {
     try {
@@ -73,3 +74,49 @@ exports.delete = async(req, res, next) => {
         });
     }
 };
+
+exports.adicionarInteresse = async(req, res, next) => {
+    try{
+        await repository.adicionarInteresse(req.body.id_evento, req.body.id_usuario);
+        await usuarioRepository.adicionarInteresse(req.body.id_evento, req.body.id_usuario);
+        res.status(200).send({
+            message: 'Interessado no evento!'
+        });
+    } catch(e) {
+        res.status(400).send({
+            message: 'Falha ao registar interesse no evento',
+            data: e
+        });
+    }
+}
+exports.removerInteresse = async(req, res, next) => {
+    try{
+        await repository.removerInteresse(req.body.id_evento, req.body.id_usuario);
+        await usuarioRepository.removerInteresse(req.body.id_evento, req.body.id_usuario);
+        res.status(200).send({
+            message: 'Interesse no evento removido!'
+        });
+    } catch(e) {
+        res.status(400).send({
+            message: 'Falha ao remover interesse no evento',
+            data: e
+        });
+    }
+}
+
+exports.compareceu = async(req, res, next) => {
+    try{
+        await repository.removerInteresse(req.body.id_evento, req.body.id_usuario);
+        await usuarioRepository.removerInteresse(req.body.id_evento, req.body.id_usuario);
+        await repository.compareceu(req.body.id_evento, req.body.id_usuario);
+        await usuarioRepository.compareceu(req.body.id_evento, req.body.id_usuario, req.body.pontuacao);
+        res.status(200).send({
+            message: 'Compareceu no evento!'
+        });
+    } catch(e) {
+        res.status(400).send({
+            message: 'Erro!',
+            data: e
+        });
+    }
+}

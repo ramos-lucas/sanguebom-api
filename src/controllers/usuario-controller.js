@@ -291,6 +291,10 @@ exports.getPontuacao = async(req, res, next) =>{
             if(element.doacao != null)
                 pontuacao += element.doacao.pontuacao;
         }, this);
+        usuario.participacoes.forEach(function(element) {
+            if(element != null)
+                pontuacao += element.pontuacao;
+        }, this);
         res.status(200).send({pontuacao});
     } catch(e) {            
         res.status(400).send({

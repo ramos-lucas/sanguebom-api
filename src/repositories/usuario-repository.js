@@ -115,10 +115,14 @@ exports.removerInteresse = async (id_evento, id_usuario) => {
 }
 
 exports.compareceu = async (id_evento, id_usuario, pontuacao) => {
-    await Usuario
-        .update({
-            "_id": id_usuario,
-            "participacoes.evento": id_evento
+    console.log(id_evento);
+    console.log(id_usuario);
+    console.log(pontuacao);
+    var teste = await Usuario
+        .update(
+            {
+              _id: id_usuario,
+              "participacoes.evento": id_evento
             },
             {
                 $set: {
@@ -126,6 +130,6 @@ exports.compareceu = async (id_evento, id_usuario, pontuacao) => {
                     "participacoes.$.pontuacao": pontuacao
                 }
             }
-        );
-
+          );
+    console.log(teste);
 }

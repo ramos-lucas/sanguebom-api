@@ -107,7 +107,6 @@ exports.removerInteresse = async(req, res, next) => {
 exports.compareceu = async(req, res, next) => {
     try{
         await repository.removerInteresse(req.body.id_evento, req.body.id_usuario);
-        await usuarioRepository.removerInteresse(req.body.id_evento, req.body.id_usuario);
         await repository.compareceu(req.body.id_evento, req.body.id_usuario);
         await usuarioRepository.compareceu(req.body.id_evento, req.body.id_usuario, req.body.pontuacao);
         res.status(200).send({
